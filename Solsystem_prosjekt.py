@@ -12,14 +12,15 @@ Created on Mon Mar 14 09:06:48 2022
 pygame.init()
 
 SKJERM_INFO = pygame.display.Info() # Henter oppløsning av skjermen
-BREDDE = SKJERM_INFO.current_w*0.8 # Bredden på vinduet
-HOYDE = SKJERM_INFO.current_h*0.8 # Høyden på vinduet
+BREDDE = SKJERM_INFO.current_w # Bredden på vinduet
+HOYDE = SKJERM_INFO.current_h # Høyden på vinduet
 SENTRUM = (BREDDE/2, HOYDE/2)
 G = 1 #Tyngekraft
 #KOLLDIST = sol.radius + jord.radius
 HIMMEL_FARGE = (0,0,100)
 FPS =  200 #Frames Per Second, dvs kor fort animasjonen skal gå.
 JORDMASSE = 1
+JORDRADIUS = 10
 
 
 class HimmelObjekt():
@@ -65,10 +66,14 @@ class HimmelObjekt():
 
 
 # Oppretter himmellegemer
-sol = HimmelObjekt("Solen", 60, JORDMASSE*30, (255,255,0), SENTRUM, (0,0))
-merkur = HimmelObjekt("Merkur", 10, JORDMASSE*0.0553, (100,0,0), (sol.X+100, sol.Y), (0, .55))
-jord = HimmelObjekt("Jorden", 20, JORDMASSE, (155,255,200), (sol.X+300, sol.Y), (0, 0.3))
+sol = HimmelObjekt("Solen", JORDRADIUS*10, JORDMASSE*50, (255,255,0), SENTRUM, (0,0))
+merkur = HimmelObjekt("Merkur", JORDRADIUS*0.38, JORDMASSE*0.0553, (100,0,0), (sol.X+140, sol.Y), (0, .6))
+venus = HimmelObjekt("Venus", JORDRADIUS*0.95, JORDMASSE*0.815, (95,100,0), (sol.X+200, sol.Y), (0, 0.5))
+jord = HimmelObjekt("Jorden", JORDRADIUS, JORDMASSE, (155,255,200), (sol.X+300, sol.Y), (0, 0.4))
 månen = HimmelObjekt("Månen", 2, JORDMASSE*0.0023, (255,255,255), (jord.X+40,jord.Y), (0, .4))
+mars = HimmelObjekt("Mars", JORDRADIUS*0.53, JORDMASSE*0.1075, (100,55,0), (sol.X+380, sol.Y), (0, 0.4))
+jupiter = HimmelObjekt("Jupiter", JORDRADIUS*4, JORDMASSE*4, (95,84,18), (sol.X+800, sol.Y), (0, 0.25))
+
 
 
 vindu = pygame.display.set_mode((BREDDE, HOYDE))
@@ -85,18 +90,24 @@ def game_loop():
                 return pygame.quit() 
     
         # kalkulerer banen til planetene
-        jord.kalkuler_bane(sol)
         merkur.kalkuler_bane(sol)
+        jord.kalkuler_bane(sol)
+        venus.kalkuler_bane(sol)
+        mars.kalkuler_bane(sol)
+        jupiter.kalkuler_bane(sol)
         #månen.kalkuler_bane(sol)
-        månen.kalkuler_bane(jord)
+        #månen.kalkuler_bane(jord)
         
         # Tegnar systemet
         vindu.fill(HIMMEL_FARGE)
         sol.tegn_til_bilde()
-        jord.tegn_til_bilde()
         merkur.tegn_til_bilde()
-        månen.tegn_til_bilde()
+        venus.tegn_til_bilde()
+        jord.tegn_til_bilde()
+        mars.tegn_til_bilde()
+        jupiter.tegn_til_bilde()
+        #månen.tegn_til_bilde()
         pygame.display.update()
-        clock.tick(FPS)
+        #clock.tick(FPS)
         
 game_loop()
