@@ -8,14 +8,19 @@ Created on Mon Mar 14 09:06:48 2022
 
 @author: nicholasrokenes
 """
-
 pygame.init()
 
+AU = 149.6e6 * 1000 # Astronomisk enhet. Ganget med 1000 for meter
+G = 6.67428e-11 # Gravitasjon
+SCALE = 10 / AU # Skala
+TIMESTEP = 3600*24 # Tidsrom for 1 dag
+
+
 SKJERM_INFO = pygame.display.Info() # Henter oppløsning av skjermen
-BREDDE = SKJERM_INFO.current_w # Bredden på vinduet
-HOYDE = SKJERM_INFO.current_h # Høyden på vinduet
+BREDDE = SKJERM_INFO.current_w*0.5 # Bredden på vinduet
+HOYDE = SKJERM_INFO.current_h*0.5 # Høyden på vinduet
 SENTRUM = (BREDDE/2, HOYDE/2)
-G = 1 #Tyngekraft
+#G = 1 #Tyngekraft
 #KOLLDIST = sol.radius + jord.radius
 HIMMEL_FARGE = (0,0,100)
 FPS =  200 #Frames Per Second, dvs kor fort animasjonen skal gå.
@@ -24,6 +29,9 @@ JORDRADIUS = 10
 
 
 class HimmelObjekt():
+    
+    
+    
     def __init__(self, navn, radius, masse, farge, koordinater, fart) -> None:
         self.navn = navn
         self.radius = radius
@@ -96,7 +104,7 @@ def game_loop():
         mars.kalkuler_bane(sol)
         jupiter.kalkuler_bane(sol)
         #månen.kalkuler_bane(sol)
-        #månen.kalkuler_bane(jord)
+        månen.kalkuler_bane(jord)
         
         # Tegnar systemet
         vindu.fill(HIMMEL_FARGE)
@@ -106,7 +114,7 @@ def game_loop():
         jord.tegn_til_bilde()
         mars.tegn_til_bilde()
         jupiter.tegn_til_bilde()
-        #månen.tegn_til_bilde()
+        månen.tegn_til_bilde()
         pygame.display.update()
         #clock.tick(FPS)
         
