@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from turtle import distance
 import pygame
 import math
 
@@ -18,8 +17,8 @@ TIMESTEP = 3600*24 # Tidsrom for 1 dag
 
 
 SKJERM_INFO = pygame.display.Info() # Henter oppløsning av skjermen
-BREDDE = SKJERM_INFO.current_w # 0.5 Bredden på vinduet
-HOYDE = SKJERM_INFO.current_h # 0.5 Høyden på vinduet
+BREDDE = 1920 #SKJERM_INFO.current_w  0.5 Bredden på vinduet
+HOYDE = 1080 #SKJERM_INFO.current_h  0.5 Høyden på vinduet
 SENTRUM = (BREDDE/2, HOYDE/2)
 FPS =  60 #Frames Per Second, dvs kor fort animasjonen skal gå.
 
